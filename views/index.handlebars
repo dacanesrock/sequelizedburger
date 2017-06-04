@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col s1"></div>
+  <div class="center-align col s5">
+    <h4>Burgers to nom nom</h4>
+      <ol>
+        {{#each burgers}}
+        {{#unless this.eaten}}    
+        <li>
+          <div class="row">
+            <div class="col s12">
+              <h5>{{this.name}}</h5>
+              <div class="input-field inline">
+                <form action="/{{this.id}}?_method=PUT" method="POST">
+                  <input type="hidden" name="eaten" value="true">
+                  <button class="waves-effect waves-light btn" type="submit"><span>Nom Nom</span></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </li>
+        {{/unless}}
+        {{/each}}
+      </ol>
+  </div>
+
+  <div class="center-align col s5">
+    <h4>Burgers already nom nommed</h4>
+      <ul>
+        {{#each burgers}}
+          {{#if this.eaten}}
+            <li>
+              <div class="row">
+                <div class="input-field">
+                  <textarea disabled class="materialize-textarea"></textarea>
+                  <label class="active"><h5>{{this.name}}</h5></label>
+                </div>
+              </div>
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+  </div>
+</div>
+<div class="col s1"></div>
+
+<div class="row">
+  <div class="col s4"></div>
+  <div class="col s4 center-align">
+    <h2>Add a Burger</h2>
+    <form class="form" action="/" method="POST">
+      <div class="form-group">
+        <label for="bn">Burger Name:</label>
+        <textarea type="text" name="name"></textarea>
+      </div> 
+      <div> 
+        <ul>
+          <input type="hidden" name="eaten" value="0">
+        </ul>  
+      </div>
+      <button type="submit">Build a Burger</button>
+    </form>
+  </div>
+  <div class="col s4"></div>
+</div>
