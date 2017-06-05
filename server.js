@@ -1,8 +1,11 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
+// Requiring our models for syncing
+var db = require("./models");
 
-var port = 3000;
+
+var PORT = 3000;
 
 var app = express();
 
@@ -25,5 +28,9 @@ var routes = require("./controllers/burger_controller.js");
 
 app.use("/", routes);
 
-app.listen(port);
-console.log("server is working");
+// Syncing our sequelize models and then starting our express app
+db.sequelize.sync({force: true}).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
